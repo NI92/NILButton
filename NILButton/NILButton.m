@@ -174,7 +174,7 @@
     self.icon.zPosition = self.zPosition++;
     [self addChild:self.icon];
     
-    self.iconPosition = NILButtonIconPositionMiddle;
+    self.iconPosition = NILButtonObjectPositionMiddle;
     self.iconSize = self.icon.frame.size;
     
     [self enableIcon:YES];
@@ -198,7 +198,7 @@
     self.label.text = @"button";
     [self addChild:self.label];
     
-    self.labelPosition = NILButtonLabelPositionBottom;
+    self.labelPosition = NILButtonObjectPositionBottom;
     
     [self enableLabel:YES];
     
@@ -279,35 +279,21 @@
     self.label.fontSize = labelFont.pointSize;
 }
 
-- (void)setLabelDefaultStateFontColor:(UIColor *)labelDefaultStateFontColor {
-    
-    _labelDefaultStateFontColor = labelDefaultStateFontColor;
-    
-    self.label.fontColor = labelDefaultStateFontColor;
-}
-
-- (void)setLabelSelectedStateFontColor:(UIColor *)labelSelectedStateFontColor {
-    
-    _labelSelectedStateFontColor = labelSelectedStateFontColor;
-    
-    self.label.fontColor = labelSelectedStateFontColor;
-}
-
 /** Re-positions the label within the button accordingly. */
-- (void)setLabelPosition:(NILButtonLabelPosition)labelPosition {
+- (void)setLabelPosition:(NILButtonObjectPosition)labelPosition {
     
     _labelPosition = labelPosition;
     
     switch (labelPosition) {
-        case NILButtonLabelPositionTop:
+        case NILButtonObjectPositionTop:
             self.label.position = CGPointMake(0, (self.privateSize.height/2)-(self.label.frame.size.height-self.labelYOffset));
             break;
             
-        case NILButtonLabelPositionMiddle:
+        case NILButtonObjectPositionMiddle:
             self.label.position = CGPointMake(0, self.labelYOffset);
             break;
             
-        case NILButtonLabelPositionBottom:
+        case NILButtonObjectPositionBottom:
             self.label.position = CGPointMake(0, -(self.privateSize.height/2)+(self.label.frame.size.height+self.labelYOffset));
             break;
     }
@@ -344,20 +330,20 @@
 }
 
 /** Re-positions the icon within the button accordingly. */
-- (void)setIconPosition:(NILButtonIconPosition)iconPosition {
+- (void)setIconPosition:(NILButtonObjectPosition)iconPosition {
     
     _iconPosition = iconPosition;
     
     switch (iconPosition) {
-        case NILButtonIconPositionTop:
+        case NILButtonObjectPositionTop:
             self.icon.position = CGPointMake(0, (self.privateSize.height/2)-(self.icon.frame.size.height*0.75f));
             break;
             
-        case NILButtonIconPositionMiddle:
+        case NILButtonObjectPositionMiddle:
             self.icon.position = CGPointMake(0, 0);
             break;
             
-        case NILButtonIconPositionBottom:
+        case NILButtonObjectPositionBottom:
             self.icon.position = CGPointMake(0, -(self.privateSize.height/2)+(self.icon.frame.size.height*0.75f));
             break;
     }
@@ -413,6 +399,12 @@
     }
 }
 
+/** Convenience method for setting the label font color. */
+- (void)labelFontColor:(SKColor *)fontColor {
+    
+    self.label.fontColor = fontColor;
+}
+
 /** Whether the label can be seen & interacted with or not. */
 - (void)enableLabel:(BOOL)enable {
     
@@ -443,6 +435,7 @@
     }
     [self backgroundImageName:@"nilButton_background_frame_sel"];
     [self iconImageName:self.iconSelectedStateImageName];
+    [self labelFontColor:self.labelSelectedStateFontColor];
     
     if ([self.delegate respondsToSelector:@selector(touchedDownButton:)]) {
         [self.delegate touchedDownButton:self];
@@ -457,6 +450,7 @@
     }
     [self backgroundImageName:@"nilButton_background_frame_def"];
     [self iconImageName:self.iconDefaultStateImageName];
+    [self labelFontColor:self.labelDefaultStateFontColor];
     
     if ([self.delegate respondsToSelector:@selector(touchedUpButton:)]) {
         [self.delegate touchedUpButton:self];

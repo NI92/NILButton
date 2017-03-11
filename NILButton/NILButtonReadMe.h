@@ -7,11 +7,8 @@
 
 /*
  
- Handy button class written in Objective-C that handles touch events within itself.
+ Handy SKSpriteNode button class written in Objective-C that handles touch events within itself.
  
- */
-
-/*
  
  -----------------------------------------------------------------------------------
  --- EXAMPLE of a 'MyScene' implementation file utilizing the 'NILButton' class: ---
@@ -46,10 +43,10 @@
  
  - (void)setupButton {
  
-    NILButton *button = [[NILButton alloc] initWithType:NILButtonTypeIconAndLabel size:buttonSize];
+    NILButton *button = [[NILButton alloc] initWithType:NILButtonTypeIconAndLabel size:CGSizeMake(100, 100)];
     button.delegate = self; // Important for delegate reporting.
     button.userInteractionEnabled = YES; // Important for registering touches.
-    [self button];
+    [self addChild:button];
  
     // BONUS: Examples of a few public properties (not required to be called):
     button.releasedButtonSFX = @""; // OR "= nil;" will turn off the 'release' sound effect.
